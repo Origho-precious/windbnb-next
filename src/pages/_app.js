@@ -3,7 +3,7 @@ import { createClient } from "@liveblocks/client";
 import "../styles/globals.css";
 
 const client = createClient({
-	publicApiKey: NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY,
+	publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY,
 });
 
 function MyApp({ Component, pageProps }) {

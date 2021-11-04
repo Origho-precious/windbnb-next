@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { RoomProvider } from "@liveblocks/react";
 import styles from "../styles/Home.module.css";
 import SearchNav from "../components/Nav/Nav";
 import data from "../data";
+import Presence from "../components/Presence/Presence";
 
 const Home = () => {
 	const [search, setSearch] = useState("");
@@ -68,14 +70,22 @@ const Home = () => {
 				/>
 				<title>Windbnb - Airbnb Clone</title>
 			</Head>
-			<SearchNav getSearch={setSearch} />
-			<main className={styles.Home}>
-				<header>
-					<h2>Stays in Finland</h2>
-					<p>{stays ? `${stays} stay(s)` : "12+ stays"}</p>
-				</header>
-				<div className={styles.grid}>{renderHouses()}</div>
-			</main>
+			<RoomProvider
+				id="windbnb"
+				defaultPresence={() => ({
+					cursor: null,
+				})}
+			>
+				<Presence />
+				<SearchNav getSearch={setSearch} />
+				<main className={styles.Home}>
+					<header>
+						<h2>Stays in Finland</h2>
+						<p>{stays ? `${stays} stay(s)` : "12+ stays"}</p>
+					</header>
+					<div className={styles.grid}>{renderHouses()}</div>
+				</main>
+			</RoomProvider>
 		</div>
 	);
 };
